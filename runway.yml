@@ -1,0 +1,15 @@
+deployments:
+  - account_id:
+      lab: "433204113401"
+    modules:
+      - path: test-module.tf
+        parameters:
+          aws_region: ${env AWS_REGION}
+          tag1_value: runway.yml
+        options:
+          terraform_write_auto_tfvars: True
+          terraform_backend_config:
+            hostname: app.terraform.io
+            organization: finley
+    regions:
+      - us-east-1
