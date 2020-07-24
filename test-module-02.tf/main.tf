@@ -1,10 +1,6 @@
 terraform {
-  backend "remote" {
 
-    workspaces {
-      prefix = "terraform-cloud-test-"
-    }
-  }
+  backend "remote" {}
 }
 
 provider "aws" {

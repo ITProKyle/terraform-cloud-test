@@ -1,15 +1,34 @@
+variables:
+  namespace: finley-lab
+
 deployments:
   - account_id:
       lab: "433204113401"
     modules:
-      - path: test-module.tf
+      - path: tf-state.cfn
+        parameters:
+          namespace: ${var namespace}
+          tf_state_bucket_name: ${var namespace}-terraform-cloud-test-${env AWS_REGION}
+          tf_state_table_name: ${var namespace}-terraform-cloud-test-${env AWS_REGION}
+      - path: test-module-01.tf
         parameters:
           aws_region: ${env AWS_REGION}
           tag1_value: runway.yml
         options:
-          terraform_write_auto_tfvars: True
           terraform_backend_config:
             hostname: app.terraform.io
             organization: finley
+      - path: test-module-02.tf
+        parameters:
+          aws_region: ${env AWS_REGION}
+          tag1_value: runway.yml
+      - path: test-module-control.tf
+        parameters:
+          aws_region: ${env AWS_REGION}
+          tag1_value: runway.yml
+        options:
+          terraform_backend_config:
+            bucket: ${var namespace}-terraform-cloud-test-${env AWS_REGION}
+            dynamodb_table: ${var namespace}-terraform-cloud-test-${env AWS_REGION}
     regions:
       - us-east-1

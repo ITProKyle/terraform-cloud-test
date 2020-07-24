@@ -6,6 +6,7 @@ verify_ssl = true
 [dev-packages]
 
 [packages]
+# runway = {editable = true,path = "./../runway"}
 runway = {editable = true,git = "https://github.com/ITProKyle/runway.git",ref = "feature/extend-tf-backend-support"}
 
 [requires]
